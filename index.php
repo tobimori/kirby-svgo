@@ -3,6 +3,10 @@
 @include_once __DIR__ . '/vendor/autoload.php';
 
 use Kirby\Cms\App;
+use Kirby\Cms\File;
+use Kirby\Cms\FileVersion;
+use Kirby\Data\Data;
+use Kirby\Filesystem\Asset;
 use Kirby\Image\Image;
 use tobimori\SvgOptimizer;
 
@@ -12,6 +16,36 @@ Image::$resizableTypes[] = 'svg';
 
 App::plugin('tobimori/svgo', [
 	'components' => [
+		'file::version' => function (App $kirby, File|Asset $file, array $options = []): File|Asset|FileVersion {
+			if (
+				pathinfo($file->filename(), PATHINFO_EXTENSION) !== 'svg' ||
+				isset($options['svg']) === false
+			) {
+				return ($kirby->nativeComponent('file::version'))($kirby, $file, $options);
+			}
+
+			$mediaRoot = $file->mediaDir();
+			$baseName = pathinfo($file->filename(), PATHINFO_FILENAME);
+			$rulesHash = hash('xxh3', serialize($options['svg']));
+			$thumbName = $baseName . '-' . $rulesHash . '.svg';
+			$thumbRoot = $mediaRoot . '/' . $thumbName;
+			$job = $mediaRoot . '/.jobs/' . $thumbName . '.json';
+
+			if (file_exists($thumbRoot) === false && file_exists($job) === false) {
+				try {
+					Data::write($job, [...$options, 'filename' => $file->filename()]);
+				} catch (Throwable) {
+					return $file;
+				}
+			}
+
+			return new FileVersion([
+				'modifications' => $options,
+				'original' => $file,
+				'root' => $thumbRoot,
+				'url' => $file->mediaUrl($thumbName),
+			]);
+		},
 		'thumb' => function (App $kirby, string $src, string $dst, array $options): string {
 			if (pathinfo($src, PATHINFO_EXTENSION) !== 'svg') {
 				return $kirby->nativeComponent('thumb')($kirby, $src, $dst, $options);
