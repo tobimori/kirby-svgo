@@ -1,38 +1,38 @@
 {
-	"name": "tobimori/kirby-svgo",
-	"description": "SVG optimization for Kirby CMS",
-	"type": "kirby-plugin",
-	"version": "0.1.0",
-	"license": "MIT",
-	"authors": [
-		{
-			"name": "Tobias Möritz",
-			"email": "tobias@moeritz.io"
-		}
-	],
-	"autoload": {
-		"psr-4": {
-			"tobimori\\": "classes/"
-		}
-	},
-	"require": {
-		"php": ">=8.3.0",
-		"getkirby/composer-installer": "^1.2",
-		"mathiasreker/php-svg-optimizer": "^8.0"
-	},
-	"require-dev": {
-		"getkirby/cms": "^5.0"
-	},
-	"scripts": {
-		"dist": "composer install --no-dev --optimize-autoloader"
-	},
-	"config": {
-		"optimize-autoloader": true,
-		"allow-plugins": {
-			"getkirby/composer-installer": true
-		}
-	},
-	"extra": {
-		"kirby-cms-path": false
-	}
+  "name": "tobimori/kirby-svgo",
+  "description": "SVG optimization for Kirby CMS",
+  "type": "kirby-plugin",
+  "version": "0.2.0",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Tobias Möritz",
+      "email": "tobias@moeritz.io"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "tobimori\\": "classes/"
+    }
+  },
+  "require": {
+    "php": ">=8.3.0",
+    "getkirby/composer-installer": "^1.2",
+    "mathiasreker/php-svg-optimizer": "^8.0"
+  },
+  "require-dev": {
+    "getkirby/cms": "^5.0"
+  },
+  "scripts": {
+    "dist": "composer install --no-dev --optimize-autoloader"
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "allow-plugins": {
+      "getkirby/composer-installer": true
+    }
+  },
+  "extra": {
+    "kirby-cms-path": false
+  }
 }

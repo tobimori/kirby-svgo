@@ -1,8 +1,8 @@
 <?php return array(
     'root' => array(
         'name' => 'tobimori/kirby-svgo',
-        'pretty_version' => '0.1.0',
-        'version' => '0.1.0.0',
+        'pretty_version' => '0.2.0',
+        'version' => '0.2.0.0',
         'reference' => null,
         'type' => 'kirby-plugin',
         'install_path' => __DIR__ . '/../../',
@@ -29,8 +29,8 @@
             'dev_requirement' => false,
         ),
         'tobimori/kirby-svgo' => array(
-            'pretty_version' => '0.1.0',
-            'version' => '0.1.0.0',
+            'pretty_version' => '0.2.0',
+            'version' => '0.2.0.0',
             'reference' => null,
             'type' => 'kirby-plugin',
             'install_path' => __DIR__ . '/../../',
